@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
     },
     emailValidated: {
         type: Boolean,
-        default: false,   
+        default: false,
     },
     password: {
         type: String,
@@ -25,6 +25,15 @@ const userSchema = new mongoose.Schema({
         type: [String],
         default: ['USER_ROLE'],
         enum: ['ADMIN_ROLE', 'USER_ROLE'],
+    },
+});
+
+userSchema.set('toJSON', {
+    virtuals: true,
+    versionKey: false,
+    transform: function (doc, ret, options) {
+        delete ret._id;
+        delete ret.password;
     },
 });
 
